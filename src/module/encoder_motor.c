@@ -48,12 +48,12 @@ void set_motor_pwm(uint16_t pwm)
     }
     else if(pwm > 0)
     {
-        drv_gpio_analog_write(PB_4, pwm);
-        drv_gpio_analog_write(PB_3, 1000);
+        drv_gpio_analog_write(PB_4, 1000);
+        drv_gpio_analog_write(PB_3, pwm);
     }
     else
     {
-        drv_gpio_analog_write(PB_4, 1000);
-        drv_gpio_analog_write(PB_3, pwm);
+        drv_gpio_analog_write(PB_4, pwm);
+        drv_gpio_analog_write(PB_3, 1000);
     }
 }

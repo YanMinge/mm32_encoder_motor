@@ -13,6 +13,9 @@
 #define DEBUG_MSG(...)
 #endif
 
+#define DATA_TX_BUFSIZE      64
+#define DATA_RX_BUFSIZE      64
+
 void uart_ringbuf_init(void);
 void drv_uart1_init(uint32_t baud_rate);
 void drv_uart2_init(uint32_t baud_rate);
@@ -22,5 +25,6 @@ void drv_uart_printf(UART_TypeDef* uart, char *fmt,...);
 void log_uart_printf(UART_TypeDef* uart, char *fmt,...);
 
 RING_BUF_DEF_STRUCT s_rx_ring_buf;
+uint8_t s_link_rx_buf[DATA_RX_BUFSIZE];
 
 #endif

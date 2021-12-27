@@ -5,16 +5,14 @@
 #include "drv_ring_buf.h"
 #include "drv_uart.h"
 #include "hal_conf.h"
-
-#define DATA_TX_BUFSIZE      64
-#define DATA_RX_BUFSIZE      64
+#include "protocol_parse.h"
 
 static RING_BUF_DEF_STRUCT s_tx_ring_buf;
 volatile uint8_t txcount = 0; 
 static uint8_t s_link_tx_buf[DATA_TX_BUFSIZE];
 
 RING_BUF_DEF_STRUCT s_rx_ring_buf;
-static uint8_t s_link_rx_buf[DATA_RX_BUFSIZE];
+uint8_t s_link_rx_buf[DATA_RX_BUFSIZE];
 
 void uart_ringbuf_init(void)
 {
@@ -166,7 +164,15 @@ void UART1_IRQHandler(void)
     {
         UART_ClearITPendingBit(UART1, UART_ISR_RX);
         receive_data = UART_ReceiveData(UART1);
-        drv_ringbuf_write((RING_BUF_DEF_STRUCT*)&s_rx_ring_buf, &receive_data, 1);
+        if(receive_data == '\n')
+        {
+            drv_ringbuf_write((RING_BUF_DEF_STRUCT*)&s_rx_ring_buf, &receive_data, 1);
+            parse_command();
+        }
+        else
+        {
+            drv_ringbuf_write((RING_BUF_DEF_STRUCT*)&s_rx_ring_buf, &receive_data, 1);
+        }
     }
     else if(RESET != UART_GetITStatus(UART1, UART_ISR_RXOERR))
     {

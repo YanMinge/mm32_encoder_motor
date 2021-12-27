@@ -6,6 +6,7 @@
 #include "drv_timer.h"
 #include "encoder_motor.h"
 #include "indicator_led.h"
+#include "protocol_parse.h"
 
 int main(void)
 {
@@ -21,9 +22,8 @@ int main(void)
     indicator_led_init();
     set_led_color(0,0,0);
     motor_init();
-    set_motor_pwm(500);
-
-    drv_uart_printf(UART1, "hello yanminge\r\n");
+    // set_motor_pwm(500);
+    // drv_uart_printf(UART1, "hello yanminge\r\n");
     ADC_SoftwareStartConvCmd(ADC1, ENABLE);
     unsigned long current_time = millis();
     while(1)
@@ -32,7 +32,7 @@ int main(void)
         {
             static bool led_state = LOW;
             led_state = !led_state;
-            drv_uart_printf(UART1, "PB_5 led_state: %d, adc read: %d, %d, %d, %d\n", led_state, drv_gpio_analog_read(PA_0), drv_gpio_analog_read(PA_1), drv_gpio_analog_read(PA_4), drv_gpio_analog_read(PA_5));
+            // drv_uart_printf(UART1, "G%d M2 R255 G0 B0\r\n", device_hw_id);
             current_time = millis();
         }
         adc_update();
