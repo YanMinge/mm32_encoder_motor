@@ -32,5 +32,5 @@ int8_t write_usr_config(usr_config_data_type usr_config_data)
 
 void load_usr_config(void)
 {
-    usr_config_data.device_id = (*(volatile uint32_t*) BANK1_WRITE_START_ADDR);
+    usr_config_data.device_id = (*(volatile uint32_t*) BANK1_WRITE_START_ADDR) & 0x000000ff;
 }

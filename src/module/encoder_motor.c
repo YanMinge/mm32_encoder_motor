@@ -36,7 +36,7 @@ void enable_motor(bool enable)
     motor_enable = enable;
 }
 
-void set_motor_pwm(uint16_t pwm)
+void set_motor_pwm(int16_t pwm)
 {
     if((pwm != 0) && (motor_enable == false))
     {
@@ -48,12 +48,14 @@ void set_motor_pwm(uint16_t pwm)
     }
     else if(pwm > 0)
     {
+        log_uart_printf(UART1, "> 0\r\n");
         drv_gpio_analog_write(PB_4, 1000);
-        drv_gpio_analog_write(PB_3, pwm);
+        drv_gpio_analog_write(PB_3, 1000 - pwm);
     }
     else
     {
-        drv_gpio_analog_write(PB_4, pwm);
+        log_uart_printf(UART1, "> 0\r\n");
+        drv_gpio_analog_write(PB_4, 1000 + pwm);
         drv_gpio_analog_write(PB_3, 1000);
     }
 }

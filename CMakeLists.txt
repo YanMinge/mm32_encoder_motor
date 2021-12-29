@@ -83,7 +83,8 @@ set(MCU  "${CPU} -mthumb")
 set(DEPFLAGS "-MMD -MP")
 
 add_compile_definitions(USE_STDPERIPH_DRIVER)
-set(CMAKE_C_FLAGS "${MCU} -fno-builtin ${OPT}  -Wall -O0 -g3 -std=gnu99 -fdata-sections -ffunction-sections ${DEPFLAGS}")
+# -lrdimon -u _printf_float
+set(CMAKE_C_FLAGS "${MCU} -fno-builtin ${OPT}  -Wall -O0 -g3 -std=gnu99 -lrdimon -u _printf_float -fdata-sections -ffunction-sections ${DEPFLAGS}")
 set(CMAKE_CXX_FLAGS "${MCU} -fno-builtin ${OPT} -Wall -O0 -g3 -std=c++11 -fdata-sections -ffunction-sections ${DEPFLAGS}")
 set(CMAKE_ASM_FLAGS "-x assembler-with-cpp ${MCU}")
 

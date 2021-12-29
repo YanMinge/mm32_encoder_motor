@@ -3,7 +3,7 @@
 
 #include "stdint.h"
 
-#define BANK1_WRITE_START_ADDR  ((uint32_t)0x08003000)
+#define BANK1_WRITE_START_ADDR  ((uint32_t)0x0800f000)
 
 typedef struct
 {

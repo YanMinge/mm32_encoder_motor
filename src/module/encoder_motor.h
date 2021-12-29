@@ -6,6 +6,6 @@
 void motor_init(void);
 void set_motor_stop(void);
 void enable_motor(bool enable);
-void set_motor_pwm(uint16_t pwm);
+void set_motor_pwm(int16_t pwm);
 
 #endif //__ENCODER_MOTOR_H__

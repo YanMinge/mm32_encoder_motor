@@ -18,7 +18,6 @@ static void parse_gcode(char *gcode_buf)
     //get device id
     str = strtok_r(gcode_buf, " ", &tmp);
     device_id = atoi(str + 1);
-
     if(device_id == device_hw_id)
     {
         //get command id
@@ -38,7 +37,7 @@ static void parse_gcode(char *gcode_buf)
             {
                 case 1:
                 {
-                    uint16_t pwm = 0;
+                    int16_t pwm = 0;
                     uint16_t rsp = 0;
                     while(str != NULL)
                     {
@@ -116,8 +115,8 @@ static void parse_gcode(char *gcode_buf)
             {
                 case 1:
                 {
-                    uint16_t r_pwm = 0;
-                    uint16_t l_pwm = 0;
+                    int16_t r_pwm = 0;
+                    int16_t l_pwm = 0;
                     while(str != NULL)
                     {
                         str = strtok_r(0, " ", &tmp);
@@ -173,14 +172,11 @@ static void parse_gcode(char *gcode_buf)
                             id = atoi(str+1);
                         }
                     }
-                    if((device_hw_id >= 0x11) && (device_hw_id <= 14))
+                    if((id >= 0x11) && (id <= 0x14))
                     {
-                        if((id >= 0x11) && (id <= 0x11))
-                        {
-                            usr_config_data.device_id = id;
-                            device_hw_id = usr_config_data.device_id;
-                        }
+                        usr_config_data.device_id = id;
                         write_usr_config(usr_config_data);
+                        device_hw_id = usr_config_data.device_id;
                     }
                     break;
                 }
